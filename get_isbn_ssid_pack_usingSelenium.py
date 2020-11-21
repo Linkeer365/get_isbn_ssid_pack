@@ -2,6 +2,20 @@ import os
 import sys
 import re
 
+import selenium
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+
+from selenium.webdriver.support.ui import WebDriverWait
+
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+# import KEYS
+from selenium.webdriver.common.keys import Keys
+
+
+
 from PIL import Image
 
 import time
@@ -16,139 +30,108 @@ import mysql.connector
 
 import pandas as pd
 
-xls_path=r"D:\get_isbn_ssid_pack\publisher_identifiers.xlsx"
+xls_path=r"D:\AllDowns\uhasnq\publisher_identifiers.xlsx"
 
 ucdrs_url="http://book.ucdrs.superlib.net/search?sw="
 
-ssid_pack_path=r"D:\get_isbn_ssid_pack\ssid_packs.txt"
+ssid_pack_path=r"D:\AllDowns\uhasnq\ssid_packs.txt"
 
-isbn_exist_error_path=r"D:\get_isbn_ssid_pack\isbn_exist_error.txt"
+isbn_exist_error_path=r"D:\AllDowns\uhasnq\isbn_exist_error.txt"
 
-isbn_after_verify_path=r"D:\get_isbn_ssid_pack\after_verify.txt"
+isbn_after_verify_path=r"D:\AllDowns\uhasnq\after_verify.txt"
 
 headers={
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
 }
 
-yzm_img_path=r"D:\get_isbn_ssid_pack\yzm.png"
+yzm_img_path=r"D:\AllDowns\uhasnq\yzm.png"
 
-s=requests.session()
+firefox_path=r"D:\selenium_drivers\geckodriver.exe"
 
-def is_isbn_exist(s,isbn):
+
+options = Options()
+options.headless = False
+
+driver=webdriver.Firefox(options=options,executable_path=firefox_path)
+
+def find_element_by_xpath2(patt):
+    max_delay=5
+    try:
+        return WebDriverWait(driver,max_delay).until(EC.presence_of_element_located((By.XPATH, patt)))
+    except selenium.common.exceptions.TimeoutException:
+        return None
+
+def find_elements_by_xpath2(patt):
+    max_delay=5
+    try:
+        WebDriverWait (driver, max_delay).until (EC.presence_of_element_located ((By.XPATH, patt)))
+        return driver.find_elements_by_xpath(patt)
+    except selenium.common.exceptions.TimeoutException:
+        return []
+
+
+def is_isbn_exist(isbn):
 
     check_str=" 0 种"
 
     assert isinstance(isbn,str)
     url=ucdrs_url+isbn
-    page_text=s.get(url,headers=headers).text
-    time.sleep(3)
-    html=etree.HTML(page_text)
 
-    found_zero_patt="//div[@id='searchinfo']/b//text()"
+    driver.get(url)
 
-    find=html.xpath(found_zero_patt)
+    # time.sleep(1)
+    # html=etree.HTML(page_text)
 
-    if find:
-        find=find[-1]
-        if check_str in find:
+    found_zero_patt="//div[@id='searchinfo']/b"
+
+    # find=html.xpath(found_zero_patt)
+
+    finds=find_elements_by_xpath2(found_zero_patt)
+
+    if finds:
+        find=finds[-1]
+        if check_str in find.text:
             return False
         else:
             return True
     else:
-        with open(isbn_exist_error_path,"a",encoding="utf-8") as f:
-            f.write(f"isbn: {isbn}\n")
-            f.write(page_text)
-            f.write("\n")
-        
-        print("capcha")
 
-        # 验证过程是逃不掉的！
-        
-        # print("start sleeping for 30 sec...")
+        if 'antispiderShowVerify.ac' in driver.current_url:
+            verify_link=driver.current_url
+            print("capcha")
 
-        # # if 'antispiderShowVerify.ac' in s.url:
+        img_link_patt="//span[@class='yzmImg']/img"
+        img_link=find_elements_by_xpath2(img_link_patt)[0].get_attribute("src")
 
-        # time.sleep(30)
-        # s=requests.session()
+        print("img_link:",img_link)
 
-        # is_isbn_exist(s,isbn)
+        # yzm_img_link_head = "http://book.ucdrs.superlib.net"
+        yzm_img_link = img_link
 
-        huanyizhang=0
-        cnt=0
+        driver.get(yzm_img_link)
+        driver.save_screenshot(yzm_img_path)
 
-        while huanyizhang==1 or cnt==0:
+        img=Image.open(yzm_img_path)
+        img.show()
 
-            cnt+=1
-            huanyizhang=0
+        yzm = input("Your input:")
 
-            yzm_url="http://book.ucdrs.superlib.net/antispiderShowVerify.ac"
-            yzm_page_text=s.get(yzm_url,headers=headers).text
-            yzm_html=etree.HTML(yzm_page_text)
-            yzm_img_link_patt="//span[@class='yzmImg']/img//@src"
+        driver.get(verify_link)
 
-            yzm_img_link_head="http://book.ucdrs.superlib.net"
+        inputBox_patt="//input[@id='ucode' and @name='ucode']"
+        inputBox=find_element_by_xpath2(inputBox_patt)
+        inputBox.send_keys(yzm)
 
-            yzm_img_link_tail=yzm_html.xpath(yzm_img_link_patt)[0]
+        inputBox.send_keys(Keys.ENTER)
 
-            yzm_img_link=yzm_img_link_head+yzm_img_link_tail
-
-            print("yzm pic link:",yzm_img_link)
-
-            yzm_img=s.get(yzm_img_link,headers=headers).content
-
-            with open(yzm_img_path,"wb") as f:
-                f.write(yzm_img)
-
-            img=Image.open(yzm_img_path)
-            img.show()
-
-            yzm=input("Your input:")
-
-            if yzm=="":
-                # 回车键就是默认换一张
-                huanyizhang=1
-                continue
-            payload={'ucode':yzm}
-
-            process_yzm_url=yzm_img_link_head+"/processVerify.ac?ucode=asyc"
-
-            checker_text=s.get(process_yzm_url,headers=headers,params=payload).text
-
-            with open(isbn_after_verify_path,"a",encoding="utf-8") as f:
-                    f.write(f"isbn:{isbn}")
-                    f.write("\n")
-                    f.write(checker_text)
-                    f.write("\n")
-
-
-
-            r=requests.get(url,headers=headers)
-
-            checker_url=r.url
-            checker_text=r.text
-
-            print("checker url:",checker_url)
-
-            if not 'antispiderShowVerify.ac' in checker_url:
-                
-                print('yanzhengtongguo')
-
-                time.sleep(60)
-
-                s=requests.session()
-
-                is_isbn_exist(s,isbn)
-            else:
-                print("gan!")
-                huanyizhang=1
-
+        is_isbn_exist(isbn)
 
 
 # bad_isbn="9782220279398"
 # is_isbn_exist(bad_isbn)
 # sys.exit(0)
 
-def get_ssid_packs(s,isbn,is_exist=True):
+def get_ssid_packs(isbn,is_exist=True):
     '''
     pack format: (isbn,ssid,ssid_info,ucdrs_link)
 
@@ -164,27 +147,35 @@ def get_ssid_packs(s,isbn,is_exist=True):
 
     for page_num in range(1,max_page_num+1):
         url = ucdrs_url + isbn + f"&Pages={page_num}"
-        page_text = s.get (url, headers=headers).text
 
-        time.sleep(3)
+        driver.get(url)
 
-        html = etree.HTML (page_text)
+        # page_text = s.get (url, headers=headers).text
+
+        # time.sleep(1)
+
+        # html = etree.HTML (page_text)
 
         checker_patt="//form[@name='formid']/table[@class='book1']"
 
-        finds=html.xpath(checker_patt)
+        # finds=html.xpath(checker_patt)
 
-        if not finds:
+        find=find_element_by_xpath2(checker_patt)
+
+        if not find:
             print(f"End at Page {page_num-1}")
             break
 
         # 我抄我自己，具体见 repo get_ucdrs_links_from_douban_series/get_ucdrs_links_from_douban_series.py Line 192
 
-        ucdrs_link_patt="//input[starts-with(@id,'url')]//@value"
-        ssid_patt="//input[starts-with(@id,'ssid')]//@value"
+        ucdrs_link_patt="//input[starts-with(@id,'url')]"
+        ssid_patt="//input[starts-with(@id,'ssid')]"
 
-        links=html.xpath(ucdrs_link_patt)
-        ssids=html.xpath(ssid_patt)
+        # links=html.xpath(ucdrs_link_patt)
+        # ssids=html.xpath(ssid_patt)
+
+        links=[each.get_attribute('value') for each in find_elements_by_xpath2(ucdrs_link_patt)]
+        ssids=[each.get_attribute('value') for each in find_elements_by_xpath2(ssid_patt)]
 
         ssids_links={ssid:link for ssid,link in zip(ssids,links) if ssid!=""}
         print(ssids_links)
@@ -192,13 +183,15 @@ def get_ssid_packs(s,isbn,is_exist=True):
         if ssids==[""] or bool(ssids)==0 or ssids_links=={}:
             continue
 
-        info_patt_node="//span[@class='fc-green']"
-        ssid_info_nodes = html.xpath (info_patt_node)
+        info_patt_node_patt="//span[@class='fc-green']"
+        # ssid_info_nodes = html.xpath (info_patt_node)
+
+        ssid_info_nodes=find_elements_by_xpath2(info_patt_node_patt)
 
         ssid_infos=[]
 
         for each_node in ssid_info_nodes:
-            info=each_node.xpath("string(.)")
+            info=each_node.text
             print("info: ",info)
             ssid_infos.append(info)
 
@@ -427,9 +420,9 @@ def main():
             isbn13=ISBN13(state_identifier=state_identifier,publish_identifier=publisher_identifier,
                           title_identifier=full_ti)
             isbn=isbn13.get_full_without_hyphen()
-            is_exist=is_isbn_exist(s,isbn)
+            is_exist=is_isbn_exist(isbn)
             if is_exist:
-                packs=get_ssid_packs(s,isbn)
+                packs=get_ssid_packs(isbn)
                 all_packs.extend(packs)
         insert_packs_sql2=  f"INSERT INTO {tb_name2} " \
                             f"(isbn,ssid,ssid_info,ucdrs_link)" \

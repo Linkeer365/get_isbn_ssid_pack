@@ -1,0 +1,318 @@
+1605947801814	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.hzI9DEhFRnCt"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605947804755	Marionette	INFO	Listening on port 5003
+1605947805032	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605947828308	Marionette	INFO	Stopped listening on port 5003
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1605947886951	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.jKKgeEbThASh"
+*** You are running in headless mode.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605947889111	Marionette	INFO	Listening on port 5138
+1605947889162	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605948032781	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.ejY8nA7po4jw"
+*** You are running in headless mode.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605948037236	Marionette	INFO	Listening on port 5285
+1605948037733	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+console.error: Region.jsm: "Error fetching region" (new AbortError("The operation was aborted. ", (void 0), 697))
+console.error: Region.jsm: "Failed to fetch region" (new Error("NO_RESULT", "resource://gre/modules/Region.jsm", 351))
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605948201852	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.AAcdjdMKkVxW"
+*** You are running in headless mode.
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605948204357	Marionette	INFO	Listening on port 5451
+1605948204566	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605948381888	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.mzTedOK50uoF"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605948384466	Marionette	INFO	Listening on port 5593
+1605948384602	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605948571164	Marionette	INFO	Stopped listening on port 5593
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1605948591600	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.o8Xf6L1rnioy"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605948594082	Marionette	INFO	Listening on port 5742
+1605948594318	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605948695044	Marionette	INFO	Stopped listening on port 5742
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1605948738567	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.3W9qyc5S5Jp1"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605948741802	Marionette	INFO	Listening on port 5864
+1605948741893	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/search?sw=9787010000107, line 1: SyntaxError: expected expression, got '<'
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/search?sw=9787010000114, line 1: SyntaxError: expected expression, got '<'
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/search?sw=9787010000121, line 1: SyntaxError: expected expression, got '<'
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605948853800	Marionette	INFO	Stopped listening on port 5864
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1605948884148	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.ON2vFR5nZQf1"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605948886660	Marionette	INFO	Listening on port 5986
+1605948886860	Marionette	WARN	TLS certificate errors will be ignored for this session
+1605949069395	Marionette	INFO	Stopped listening on port 5986
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1605949082212	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.9FJt7ioop2in"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605949084747	Marionette	INFO	Listening on port 6093
+1605949084927	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
+1605949298927	Marionette	INFO	Stopped listening on port 6093
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ line 66: Error: Can't find profile directory.
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1605949163763	Marionette	INFO	Listening on port 6182
+1605949163933	Marionette	WARN	TLS certificate errors will be ignored for this session
+1605949171271	Marionette	INFO	Stopped listening on port 6182
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+

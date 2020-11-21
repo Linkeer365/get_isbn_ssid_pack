@@ -2,8 +2,6 @@ import os
 import sys
 import re
 
-from PIL import Image
-
 import time
 
 import math
@@ -24,24 +22,18 @@ ssid_pack_path=r"D:\get_isbn_ssid_pack\ssid_packs.txt"
 
 isbn_exist_error_path=r"D:\get_isbn_ssid_pack\isbn_exist_error.txt"
 
-isbn_after_verify_path=r"D:\get_isbn_ssid_pack\after_verify.txt"
-
 headers={
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
 }
 
-yzm_img_path=r"D:\get_isbn_ssid_pack\yzm.png"
-
-s=requests.session()
-
-def is_isbn_exist(s,isbn):
+def is_isbn_exist(isbn):
 
     check_str=" 0 种"
 
     assert isinstance(isbn,str)
     url=ucdrs_url+isbn
-    page_text=s.get(url,headers=headers).text
-    time.sleep(3)
+    page_text=requests.get(url,headers=headers).text
+    time.sleep(1)
     html=etree.HTML(page_text)
 
     found_zero_patt="//div[@id='searchinfo']/b//text()"
@@ -59,88 +51,10 @@ def is_isbn_exist(s,isbn):
             f.write(f"isbn: {isbn}\n")
             f.write(page_text)
             f.write("\n")
-        
-        print("capcha")
-
-        # 验证过程是逃不掉的！
-        
-        # print("start sleeping for 30 sec...")
-
-        # # if 'antispiderShowVerify.ac' in s.url:
-
-        # time.sleep(30)
-        # s=requests.session()
-
-        # is_isbn_exist(s,isbn)
-
-        huanyizhang=0
-        cnt=0
-
-        while huanyizhang==1 or cnt==0:
-
-            cnt+=1
-            huanyizhang=0
-
-            yzm_url="http://book.ucdrs.superlib.net/antispiderShowVerify.ac"
-            yzm_page_text=s.get(yzm_url,headers=headers).text
-            yzm_html=etree.HTML(yzm_page_text)
-            yzm_img_link_patt="//span[@class='yzmImg']/img//@src"
-
-            yzm_img_link_head="http://book.ucdrs.superlib.net"
-
-            yzm_img_link_tail=yzm_html.xpath(yzm_img_link_patt)[0]
-
-            yzm_img_link=yzm_img_link_head+yzm_img_link_tail
-
-            print("yzm pic link:",yzm_img_link)
-
-            yzm_img=s.get(yzm_img_link,headers=headers).content
-
-            with open(yzm_img_path,"wb") as f:
-                f.write(yzm_img)
-
-            img=Image.open(yzm_img_path)
-            img.show()
-
-            yzm=input("Your input:")
-
-            if yzm=="":
-                # 回车键就是默认换一张
-                huanyizhang=1
-                continue
-            payload={'ucode':yzm}
-
-            process_yzm_url=yzm_img_link_head+"/processVerify.ac?ucode=asyc"
-
-            checker_text=s.get(process_yzm_url,headers=headers,params=payload).text
-
-            with open(isbn_after_verify_path,"a",encoding="utf-8") as f:
-                    f.write(f"isbn:{isbn}")
-                    f.write("\n")
-                    f.write(checker_text)
-                    f.write("\n")
-
-
-
-            r=requests.get(url,headers=headers)
-
-            checker_url=r.url
-            checker_text=r.text
-
-            print("checker url:",checker_url)
-
-            if not 'antispiderShowVerify.ac' in checker_url:
-                
-                print('yanzhengtongguo')
-
-                time.sleep(60)
-
-                s=requests.session()
-
-                is_isbn_exist(s,isbn)
-            else:
-                print("gan!")
-                huanyizhang=1
+        if '验证码' in page_text:
+            time.sleep(60)
+            is_isbn_exist(isbn)
+        # return False
 
 
 
@@ -148,7 +62,7 @@ def is_isbn_exist(s,isbn):
 # is_isbn_exist(bad_isbn)
 # sys.exit(0)
 
-def get_ssid_packs(s,isbn,is_exist=True):
+def get_ssid_packs(isbn,is_exist=True):
     '''
     pack format: (isbn,ssid,ssid_info,ucdrs_link)
 
@@ -164,9 +78,9 @@ def get_ssid_packs(s,isbn,is_exist=True):
 
     for page_num in range(1,max_page_num+1):
         url = ucdrs_url + isbn + f"&Pages={page_num}"
-        page_text = s.get (url, headers=headers).text
+        page_text = requests.get (url, headers=headers).text
 
-        time.sleep(3)
+        time.sleep(1)
 
         html = etree.HTML (page_text)
 
@@ -427,9 +341,9 @@ def main():
             isbn13=ISBN13(state_identifier=state_identifier,publish_identifier=publisher_identifier,
                           title_identifier=full_ti)
             isbn=isbn13.get_full_without_hyphen()
-            is_exist=is_isbn_exist(s,isbn)
+            is_exist=is_isbn_exist(isbn)
             if is_exist:
-                packs=get_ssid_packs(s,isbn)
+                packs=get_ssid_packs(isbn)
                 all_packs.extend(packs)
         insert_packs_sql2=  f"INSERT INTO {tb_name2} " \
                             f"(isbn,ssid,ssid_info,ucdrs_link)" \
