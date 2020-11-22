@@ -129,7 +129,7 @@ def is_isbn_exist(s,isbn,proxy):
     # proxy = "http://" + proxy
 
     proxies = { 'http': proxy,
-                "https": proxy
+                'https': proxy
                 }
 
     check_str=" 0 种"
@@ -139,17 +139,36 @@ def is_isbn_exist(s,isbn,proxy):
     try:
         # page_text=s.get(url,headers=headers,proxies=proxies,timeout=120).text
         page_text=s.get(url,headers=headers,proxies=proxies,timeout=60).text
-    except requests.exceptions.Timeout:
-        print("Timeout!")
-    except requests.exceptions.RequestException:
-        print("Phase1: Connection Error!")
+        assert page_text!=""
+    # except requests.exceptions.Timeout:
+    #     print("Timeout!")
+
+    # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
+    except AssertionError or Exception:
+        print("Phase1: Connection Error or Proxy Error.")
 
         proxy=get_random_proxy()
         # s=requests.session()
 
+        global ua_idx
+
+        ua_idx+=1
+
+        if ua_idx==len(ua_list2):
+            ua_idx=0
+
+        # assert ua_idx<=len(ua_list)-1
+
+        # global headers
+
+        headers["User-Agent"]=ua_list2[ua_idx]
+
         s.cookies.clear()
 
         isbn(s,isbn,proxy)
+    
+    # except requests.exceptions.ProxyError:
+
 
     # time.sleep(3)
     html=etree.HTML(page_text)
@@ -172,18 +191,18 @@ def is_isbn_exist(s,isbn,proxy):
         
         print("capcha")
 
-        global ua_idx
+        # global ua_idx
 
         ua_idx+=1
 
-        if ua_idx==len(ua_list):
+        if ua_idx==len(ua_list2):
             ua_idx=0
 
         # assert ua_idx<=len(ua_list)-1
 
         # global headers
 
-        # headers["User-Agent"]=ua_list2[ua_idx]
+        headers["User-Agent"]=ua_list2[ua_idx]
 
         # print("ua now:",ua_list2[ua_idx])
 
@@ -303,7 +322,8 @@ def get_ssid_packs(s,isbn,proxy,is_exist=True):
     :return: packs
     '''
 
-    proxies = {'http': 'http://' + proxy}
+    proxies = {'http':proxy,
+                "https":proxy}
 
     assert isinstance (isbn, str)
 
@@ -316,10 +336,12 @@ def get_ssid_packs(s,isbn,proxy,is_exist=True):
         url = ucdrs_url + isbn + f"&Pages={page_num}"
         try:
             page_text = s.get (url, headers=headers,proxies=proxies,timeout=60).text
-        except requests.exceptions.Timeout:
-            print("Timeout!")
-        except requests.exceptions.RequestException:
-            print("Phase2: Connection Error!")
+            assert page_text!=""
+        # except requests.exceptions.Timeout or AssertionError:
+        #     print("Timeout!")
+        # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
+        except AssertionError or Exception:
+            print("Phase2: Connection Error or Proxy")
 
             proxy=get_random_proxy()
 
