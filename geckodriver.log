@@ -44,7 +44,8 @@ JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceErr
 JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
 JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
 JavaScript error: http://book.ucdrs.superlib.net/js/inc.js, line 8: ReferenceError: jQuery is not defined
-1605948032781	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.ejY8nA7po4jw"
+Exiting due to channel error.
+	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "C:\\temp\\rust_mozprofile.ejY8nA7po4jw"
 *** You are running in headless mode.
 JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
 console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
