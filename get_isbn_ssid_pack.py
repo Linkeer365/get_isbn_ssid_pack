@@ -2,6 +2,8 @@ import os
 import sys
 import re
 
+import socket
+
 import urllib3.exceptions
 
 import subprocess
@@ -27,6 +29,9 @@ xls_path=r"D:\get_isbn_ssid_pack\publisher_identifiers.xlsx"
 ucdrs_url="http://book.ucdrs.superlib.net/search?sw="
 
 ssid_pack_path=r"D:\AllDowns\ssid_packs\ssid_packs.txt"
+
+# no matter good or bad...
+isbn_already_path=r"D:\AllDowns\ssid_packs\isbn_already.txt"
 
 isbn_exist_error_path=r"D:\get_isbn_ssid_pack\isbn_exist_error.txt"
 
@@ -148,7 +153,7 @@ def is_isbn_exist(s,isbn,proxy):
     #     print("Timeout!")
 
     # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
-    except AssertionError or requests.exceptions.ProxyError or ConnectionResetError or urllib3.exceptions.MaxRetryError:
+    except socket.timeout or AssertionError or requests.exceptions.ProxyError or requests.exceptions.ConnectionError or ConnectionResetError or urllib3.exceptions.MaxRetryError:
         print("Phase1: Connection Error or Proxy Error.")
 
         proxy=get_random_proxy()
@@ -168,6 +173,10 @@ def is_isbn_exist(s,isbn,proxy):
         headers["User-Agent"]=ua_list2[ua_idx]
 
         s.cookies.clear()
+
+        time.sleep(60)
+
+        print("Force to sleep 1min...")
 
         isbn(s,isbn,proxy)
     
@@ -346,12 +355,16 @@ def get_ssid_packs(s,isbn,proxy,is_exist=True):
         # except requests.exceptions.Timeout or AssertionError:
         #     print("Timeout!")
         # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
-        except AssertionError or requests.exceptions.ProxyError or ConnectionResetError or urllib3.exceptions.MaxRetryError:
+        except AssertionError or requests.exceptions.ProxyError or ConnectionResetError or urllib3.exceptions.MaxRetryError or requests.exceptions.ConnectionError:
             print("Phase2: Connection Error or Proxy")
 
             proxy=get_random_proxy()
 
             s.cookies.clear()
+
+            print("Force to sleep 1min...")
+
+            time.sleep(60)
 
             get_ssid_packs(s,isbn,proxy)
 
@@ -395,8 +408,8 @@ def get_ssid_packs(s,isbn,proxy,is_exist=True):
             print("info: ",info)
             ssid_infos.append(info)
 
-        print("ssids:\t",ssids)
-        print("ssid-infos:\t",ssid_infos)
+        # print("ssids:\t",ssids)
+        # print("ssid-infos:\t",ssid_infos)
 
         option_idx=0
         option_idxs=[]
@@ -420,6 +433,7 @@ def get_ssid_packs(s,isbn,proxy,is_exist=True):
             choose_ssid=ssids[choice_idx]
             ucdrs_link=ssids_links[choose_ssid]
             # ucdrs_links.append(ucdrs_link)
+            print("isbn: ",isbn)
             print("ucdrs link:",ucdrs_link)
             print("ssid:",choose_ssid)
             print("ssid_info:",choose_info)
@@ -610,9 +624,19 @@ def main():
     s=requests.session()
     proxy = get_random_proxy ()
 
-    for publisher_identifier in res:
+    with open(isbn_already_path,"r",encoding="utf-8") as f:
+        already_isbn_set=set([each.strip("\n") for each in f.readlines() if each!='\n'])
+    
+    with open(ssid_pack_path,"r",encoding="utf-8") as f:
+        old_packs=[tuple(each.strip("\n").split("$\t")) for each in f.readlines() if each!="\n"]
+    
+    # print(old_packs[0])
 
-        all_packs = []
+    all_packs = []
+
+    all_packs.extend(old_packs)
+
+    for publisher_identifier in res:
 
         # get title_identifier num
 
@@ -626,8 +650,12 @@ def main():
                           title_identifier=full_ti)
             isbn=isbn13.get_full_without_hyphen()
 
+            if isbn in already_isbn_set:
+                # print("already.")
+                continue
+
             
-            if cnt==15:
+            if cnt%15==0:
                 
                 # 每15次就大更新一次
 
@@ -640,22 +668,33 @@ def main():
 
                 # time.sleep(20)
                 # print("now we sleep for 20s...")
-                cnt=0
+                # cnt=0
             is_exist=is_isbn_exist(s,isbn,proxy)
             cnt+=1
             if is_exist:
                 packs=get_ssid_packs(s,isbn,proxy)
                 all_packs.extend(packs)
-        insert_packs_sql2=  f"INSERT INTO {tb_name2} " \
-                            f"(isbn,ssid,ssid_info,ucdrs_link)" \
-                            f"VALUES (%s,%s,%s,%s)"
-        cursor2.executemany(insert_packs_sql2,all_packs)
+            
+            with open(isbn_already_path,"a",encoding="utf-8") as f:
+                f.write("\n")
+                f.write(isbn)
+            if cnt%500==0:
+                print("sleep for 1min...")
+                time.sleep(60)
+                s.cookies.clear()
 
-        db2.commit()
+    insert_packs_sql2=  f"INSERT INTO {tb_name2} " \
+                        f"(isbn,ssid,ssid_info,ucdrs_link)" \
+                        f"VALUES (%s,%s,%s,%s)"
+    cursor2.executemany(insert_packs_sql2,all_packs)
 
-        print(cursor2.rowcount,"条 已插入！")
+    db2.commit()
 
-        time.sleep(5)
+    print(cursor2.rowcount,"条 已插入！")
+
+    print("db written.")
+
+        # time.sleep(5)
 
     print("all done.")
 
