@@ -2,6 +2,8 @@ import os
 import sys
 import re
 
+import urllib3.exceptions
+
 import subprocess
 
 import redis
@@ -128,9 +130,9 @@ def is_isbn_exist(s,isbn,proxy):
 
     # proxy = "http://" + proxy
 
-    proxies = { 'http': proxy,
-                'https': proxy
-                }
+    # proxies = { 'http': proxy,
+    #             'https': proxy
+    #             }
 
     check_str=" 0 种"
 
@@ -138,13 +140,15 @@ def is_isbn_exist(s,isbn,proxy):
     url=ucdrs_url+isbn
     try:
         # page_text=s.get(url,headers=headers,proxies=proxies,timeout=120).text
-        page_text=s.get(url,headers=headers,proxies=proxies,timeout=60).text
+        # page_text=s.get(url,headers=headers,proxies=proxies,timeout=60).text
+        page_text=s.get(url,headers=headers,timeout=60).text
         assert page_text!=""
+        time.sleep(1)
     # except requests.exceptions.Timeout:
     #     print("Timeout!")
 
     # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
-    except AssertionError or Exception:
+    except AssertionError or requests.exceptions.ProxyError or ConnectionResetError or urllib3.exceptions.MaxRetryError:
         print("Phase1: Connection Error or Proxy Error.")
 
         proxy=get_random_proxy()
@@ -335,12 +339,14 @@ def get_ssid_packs(s,isbn,proxy,is_exist=True):
     for page_num in range(1,max_page_num+1):
         url = ucdrs_url + isbn + f"&Pages={page_num}"
         try:
-            page_text = s.get (url, headers=headers,proxies=proxies,timeout=60).text
+            # page_text = s.get (url, headers=headers,proxies=proxies,timeout=60).text
+            page_text = s.get (url, headers=headers,timeout=60).text
             assert page_text!=""
+            time.sleep(1)
         # except requests.exceptions.Timeout or AssertionError:
         #     print("Timeout!")
         # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
-        except AssertionError or Exception:
+        except AssertionError or requests.exceptions.ProxyError or ConnectionResetError or urllib3.exceptions.MaxRetryError:
             print("Phase2: Connection Error or Proxy")
 
             proxy=get_random_proxy()
