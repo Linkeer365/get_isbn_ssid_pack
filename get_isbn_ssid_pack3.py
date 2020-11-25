@@ -19,9 +19,8 @@ import math
 import requests
 from lxml import etree
 
-
-import mysql.connector
 import pymysql
+import mysql.connector
 
 import pandas as pd
 
@@ -82,23 +81,83 @@ headers={
 
 yzm_img_path=r"D:\get_isbn_ssid_pack\yzm.png"
 
+# s=requests.session()
 
-def is_isbn_exist(s,isbn):
+# redis login
+
+def redis_login():
+    # import redis
+    pool = redis.ConnectionPool (decode_response=True)
+    db = redis.Redis (connection_pool=pool, host="localhost", port=6379, password='xm111737')
+    print("redis login!")
+
+redis_login()
+
+# boot the proxypool
+
+proxypool_path=r"D:\get_isbn_ssid_pack\ProxyPool\run.py"
+
+boot_proxy_comm=f"python \"{proxypool_path}\""
+
+# os.popen(boot_proxy_comm)
+
+# https://stackoverflow.com/questions/546017/how-do-i-run-another-script-in-python-without-waiting-for-it-to-finish
+# 设置为后台运行...
+
+subprocess.Popen([sys.executable,proxypool_path],stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+time.sleep(5)
+
+proxy_status=requests.get(proxypool_url).status_code
+
+if proxy_status==200:
+    print("proxypool boot!")
+
+def get_random_proxy():
+    """
+    get random proxy from proxypool
+    :return: proxy
+    """
+
+    proxy_str=requests.get(proxypool_url).text
+
+    assert ":" in proxy_str
+
+    proxy=proxy_str.strip()
+
+    print("proxy change!")
+    print("proxy:",proxy)
+
+    return proxy
+
+
+def is_isbn_exist(s,isbn,proxy):
+
+    # proxy = "http://" + proxy
+
+    # proxies = { 'http': proxy,
+    #             'https': proxy
+    #             }
 
     check_str=" 0 种"
 
     assert isinstance(isbn,str)
     url=ucdrs_url+isbn
     try:
-
+        # page_text=s.get(url,headers=headers,proxies=proxies,timeout=120).text
+        # page_text=s.get(url,headers=headers,proxies=proxies,timeout=60).text
         page_text=s.get(url,headers=headers,timeout=60).text
         assert page_text!=""
         time.sleep(1)
+    # except requests.exceptions.Timeout:
+    #     print("Timeout!")
 
     # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
     except socket.timeout or AssertionError or requests.exceptions.ProxyError or requests.exceptions.ConnectionError or ConnectionResetError or urllib3.exceptions.MaxRetryError:
         print("Phase1: Connection Error or Proxy Error.")
 
+        proxy=get_random_proxy()
+        # s=requests.session()
 
         global ua_idx
 
@@ -107,6 +166,9 @@ def is_isbn_exist(s,isbn):
         if ua_idx==len(ua_list2):
             ua_idx=0
 
+        # assert ua_idx<=len(ua_list)-1
+
+        # global headers
 
         headers["User-Agent"]=ua_list2[ua_idx]
 
@@ -116,7 +178,7 @@ def is_isbn_exist(s,isbn):
 
         print("Force to sleep 1min...")
 
-        isbn(s,isbn)
+        isbn(s,isbn,proxy)
     
     # except requests.exceptions.ProxyError:
 
@@ -135,21 +197,128 @@ def is_isbn_exist(s,isbn):
         else:
             return True
     else:
+        # with open(isbn_exist_error_path,"a",encoding="utf-8") as f:
+        #     f.write(f"isbn: {isbn}\n")
+        #     f.write(page_text)
+        #     f.write("\n")
         
         print("capcha")
+
+        # global ua_idx
 
         ua_idx+=1
 
         if ua_idx==len(ua_list2):
             ua_idx=0
 
+        # assert ua_idx<=len(ua_list)-1
+
+        # global headers
+
         headers["User-Agent"]=ua_list2[ua_idx]
 
+        # print("ua now:",ua_list2[ua_idx])
+
+        # print("sleep for 60s...")
+
+        # time.sleep(60)
+
+        # s=requests.session()
 
         s.cookies.clear()
 
-        is_isbn_exist(s,isbn)
+        # 紧急切换proxy
 
+        proxy=get_random_proxy()
+
+        # headers={ua_list[ua_idx]}
+
+        is_isbn_exist(s,isbn,proxy)
+
+
+
+
+        # 验证过程是逃不掉的！
+        
+        # print("start sleeping for 30 sec...")
+
+        # # if 'antispiderShowVerify.ac' in s.url:
+
+        # time.sleep(30)
+        # s=requests.session()
+
+        # is_isbn_exist(s,isbn)
+
+        # 验证码片段
+
+        # huanyizhang=0
+        # cnt=0
+        #
+        # while huanyizhang==1 or cnt==0:
+        #
+        #     cnt+=1
+        #     huanyizhang=0
+        #
+        #     yzm_url="http://book.ucdrs.superlib.net/antispiderShowVerify.ac"
+        #     yzm_page_text=s.get(yzm_url,headers=headers).text
+        #     yzm_html=etree.HTML(yzm_page_text)
+        #     yzm_img_link_patt="//span[@class='yzmImg']/img//@src"
+        #
+        #     yzm_img_link_head="http://book.ucdrs.superlib.net"
+        #
+        #     yzm_img_link_tail=yzm_html.xpath(yzm_img_link_patt)[0]
+        #
+        #     yzm_img_link=yzm_img_link_head+yzm_img_link_tail
+        #
+        #     print("yzm pic link:",yzm_img_link)
+        #
+        #     yzm_img=s.get(yzm_img_link,headers=headers).content
+        #
+        #     with open(yzm_img_path,"wb") as f:
+        #         f.write(yzm_img)
+        #
+        #     img=Image.open(yzm_img_path)
+        #     img.show()
+        #
+        #     yzm=input("Your input:")
+        #
+        #     if yzm=="":
+        #         # 回车键就是默认换一张
+        #         huanyizhang=1
+        #         continue
+        #     payload={'ucode':yzm}
+        #
+        #     process_yzm_url=yzm_img_link_head+"/processVerify.ac?ucode=asyc"
+        #
+        #     checker_text=s.get(process_yzm_url,headers=headers,params=payload).text
+        #
+        #     with open(isbn_after_verify_path,"a",encoding="utf-8") as f:
+        #             f.write(f"isbn:{isbn}")
+        #             f.write("\n")
+        #             f.write(checker_text)
+        #             f.write("\n")
+        #
+        #
+        #
+        #     r=requests.get(url,headers=headers)
+        #
+        #     checker_url=r.url
+        #     checker_text=r.text
+        #
+        #     print("checker url:",checker_url)
+        #
+        #     if not 'antispiderShowVerify.ac' in checker_url:
+        #
+        #         print('yanzhengtongguo')
+        #
+        #         time.sleep(60)
+        #
+        #         s=requests.session()
+        #
+        #         is_isbn_exist(s,isbn)
+        #     else:
+        #         print("gan!")
+        #         huanyizhang=1
 
 
 
@@ -157,7 +326,7 @@ def is_isbn_exist(s,isbn):
 # is_isbn_exist(bad_isbn)
 # sys.exit(0)
 
-def get_ssid_packs(s,isbn,is_exist=True):
+def get_ssid_packs(s,isbn,proxy,is_exist=True):
     '''
     pack format: (isbn,ssid,ssid_info,ucdrs_link)
 
@@ -166,6 +335,8 @@ def get_ssid_packs(s,isbn,is_exist=True):
     :return: packs
     '''
 
+    proxies = {'http':proxy,
+                "https":proxy}
 
     assert isinstance (isbn, str)
 
@@ -177,14 +348,17 @@ def get_ssid_packs(s,isbn,is_exist=True):
     for page_num in range(1,max_page_num+1):
         url = ucdrs_url + isbn + f"&Pages={page_num}"
         try:
-
+            # page_text = s.get (url, headers=headers,proxies=proxies,timeout=60).text
             page_text = s.get (url, headers=headers,timeout=60).text
             assert page_text!=""
             time.sleep(1)
-
+        # except requests.exceptions.Timeout or AssertionError:
+        #     print("Timeout!")
+        # except AssertionError or requests.exceptions.RequestException or requests.exceptions.ProxyError:
         except AssertionError or requests.exceptions.ProxyError or ConnectionResetError or urllib3.exceptions.MaxRetryError or requests.exceptions.ConnectionError:
             print("Phase2: Connection Error or Proxy")
 
+            proxy=get_random_proxy()
 
             s.cookies.clear()
 
@@ -192,8 +366,13 @@ def get_ssid_packs(s,isbn,is_exist=True):
 
             time.sleep(60)
 
-            get_ssid_packs(s,isbn)
+            get_ssid_packs(s,isbn,proxy)
 
+
+
+
+
+        # time.sleep(3)
 
         html = etree.HTML (page_text)
 
@@ -242,6 +421,8 @@ def get_ssid_packs(s,isbn,is_exist=True):
         if len(ssids_links)==1:
             choice_idxs=[option_idx]
         elif len(ssids_links)>=2:
+            # choice_idxs_in=input("Your choice(multiple is ok, split by ,):")
+            # choice_idxs=[int(each)-1 for each in choice_idxs_in.split(",")]
             choice_idxs=option_idxs
 
         # ucdrs_links=[]
@@ -273,6 +454,13 @@ def get_ssid_packs(s,isbn,is_exist=True):
 
     return packs
 
+
+
+
+# bad_isbn="9787544242516"
+# multi_isbn="9787108016386"
+# get_ssid_pack(multi_isbn)
+# sys.exit(0)
 
 
 
@@ -383,6 +571,15 @@ def write_publishers_db(xls_path):
     print("db written.")
 
 
+    # publishers=list(reversed([val[0] for val in vals if isinstance(val[0],str)]))
+    # publisher_identifiers=list(reversed([val[1] for val in vals if isinstance(val[1],str)]))
+    # publisher_old_identifiers=list(reversed([val[2] for val in vals if isinstance(val[2],str) and '曾用出版社编号' in val[2]]))
+    #
+    # print(publishers)
+    # print(publisher_identifiers)
+    # print(publisher_old_identifiers)
+
+
 def main():
 
     is_publishers_finished=1
@@ -396,7 +593,7 @@ def main():
 
     tb_name = "China2020"
 
-    ppi_select_sql=f"SELECT publisher_identifiers,publisher_old_indentifiers FROM {tb_name}"
+    ppi_select_sql=f"SELECT publisher_identifiers FROM {tb_name}"
 
     db_name='publishers'
     db=pymysql.connect('localhost','root','cc',db_name)
@@ -405,9 +602,7 @@ def main():
 
     cursor.execute(ppi_select_sql)
 
-    res=cursor.fetchall()
-
-    # res=[each[0] for each in cursor.fetchall()]
+    res=[each[0] for each in cursor.fetchall()]
 
     db_name2='ucdrs_books'
     db2=pymysql.connect('localhost','root','cc',db_name2)
@@ -427,7 +622,7 @@ def main():
         pass
 
     s=requests.session()
-    # proxy = get_random_proxy ()
+    proxy = get_random_proxy ()
 
     with open(isbn_already_path,"r",encoding="utf-8") as f:
         already_isbn_set=set([each.strip("\n") for each in f.readlines() if each!='\n'])
@@ -441,50 +636,52 @@ def main():
 
     all_packs.extend(old_packs)
 
-    for publisher_identifier,publisher_old_indentifier in res:
+    for publisher_identifier in res:
 
         # get title_identifier num
-        publisher_identifiers=[]
-        if publisher_old_indentifier=='0':
-            publisher_identifiers=[publisher_identifier]
-        else:
-            # 上下两个 publisher_identifier 意义不同，注意一下!
-            publisher_identifiers=[publisher_identifier]+publisher_identifier.split(",")
-        
-        print("publisher_identifiers:",publisher_identifiers)
+
+        max_ti_len=get_max_ti_len(publisher_identifier)
 
         cnt=0
 
-        for publisher_identifier in publisher_identifiers:
-            max_ti_len=get_max_ti_len(publisher_identifier)
-            for num in range(0,10**max_ti_len):
-                full_ti=get_full_ti_str(num,max_ti_len)
-                isbn13=ISBN13(state_identifier=state_identifier,publish_identifier=publisher_identifier,
-                            title_identifier=full_ti)
-                isbn=isbn13.get_full_without_hyphen()
+        for num in range(0,10**max_ti_len):
+            full_ti=get_full_ti_str(num,max_ti_len)
+            isbn13=ISBN13(state_identifier=state_identifier,publish_identifier=publisher_identifier,
+                          title_identifier=full_ti)
+            isbn=isbn13.get_full_without_hyphen()
 
-                if isbn in already_isbn_set:
-                    # print("already.")
-                    continue
+            if isbn in already_isbn_set:
+                # print("already.")
+                continue
 
+            
+            if cnt%15==0:
                 
-                if cnt%15==0:
-                    
-                    s.cookies.clear()
+                # 每15次就大更新一次
 
-                is_exist=is_isbn_exist(s,isbn)
-                cnt+=1
-                if is_exist:
-                    packs=get_ssid_packs(s,isbn)
-                    all_packs.extend(packs)
-                
-                with open(isbn_already_path,"a",encoding="utf-8") as f:
-                    f.write("\n")
-                    f.write(isbn)
-                if cnt%500==0:
-                    print("sleep for 1min...")
-                    time.sleep(60)
-                    s.cookies.clear()
+                # headers["User-Agent"]=ua_list2[ua_idx]
+                proxy=get_random_proxy()
+
+                # s=requests.session()
+
+                s.cookies.clear()
+
+                # time.sleep(20)
+                # print("now we sleep for 20s...")
+                # cnt=0
+            is_exist=is_isbn_exist(s,isbn,proxy)
+            cnt+=1
+            if is_exist:
+                packs=get_ssid_packs(s,isbn,proxy)
+                all_packs.extend(packs)
+            
+            with open(isbn_already_path,"a",encoding="utf-8") as f:
+                f.write("\n")
+                f.write(isbn)
+            if cnt%500==0:
+                print("sleep for 1min...")
+                time.sleep(60)
+                s.cookies.clear()
 
     insert_packs_sql2=  f"INSERT INTO {tb_name2} " \
                         f"(isbn,ssid,ssid_info,ucdrs_link)" \
@@ -497,8 +694,21 @@ def main():
 
     print("db written.")
 
+        # time.sleep(5)
 
     print("all done.")
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+    #
+
+
+
