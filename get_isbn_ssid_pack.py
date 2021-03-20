@@ -38,7 +38,10 @@ isbn_exist_error_path=r"D:\get_isbn_ssid_pack\isbn_exist_error.txt"
 
 isbn_after_verify_path=r"D:\get_isbn_ssid_pack\after_verify.txt"
 
-ua_list = [ 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)',
+old_one2='Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)'
+
+ua_list = [ 
+            'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
             'Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2919.83 Safari/537.36',
             'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2866.71 Safari/537.36',
             'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
@@ -53,7 +56,9 @@ ua_list = [ 'Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/sea
            'Mozilla/4.0 (compatible; Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; GTB6; Acoo Browser; .NET CLR 1.1.4322; .NET CLR 2.0.50727); Windows NT 5.1; Trident/4.0; Maxthon; .NET CLR 2.0.50727; .NET CLR 1.1.4322; InfoPath.2)',
            ]
 
-ua_list2=[  "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1",
+old_one="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1"
+
+ua_list2=[  
            "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11",
            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6",
            "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6",
@@ -77,7 +82,7 @@ proxypool_url = 'http://127.0.0.1:5555/random'
 ua_idx=0
 
 headers={
-    "User-Agent": ua_list2[ua_idx]
+    "User-Agent": ua_list[ua_idx]
 }
 
 yzm_img_path=r"D:\get_isbn_ssid_pack\yzm.png"
@@ -91,7 +96,7 @@ def is_isbn_exist(s,isbn):
     url=ucdrs_url+isbn
     try:
 
-        page_text=s.get(url,headers=headers,timeout=60).text
+        page_text=s.get(url,headers=headers,timeout=15).text
         assert page_text!=""
         time.sleep(1)
 
@@ -104,11 +109,11 @@ def is_isbn_exist(s,isbn):
 
         ua_idx+=1
 
-        if ua_idx==len(ua_list2):
+        if ua_idx==len(ua_list):
             ua_idx=0
 
 
-        headers["User-Agent"]=ua_list2[ua_idx]
+        headers["User-Agent"]=ua_list[ua_idx]
 
         s.cookies.clear()
 
@@ -138,15 +143,21 @@ def is_isbn_exist(s,isbn):
         
         print("capcha")
 
-        ua_idx+=1
+        # ua_idx+=1
 
-        if ua_idx==len(ua_list2):
-            ua_idx=0
+        # if ua_idx==len(ua_list2):
+            # ua_idx=0
 
-        headers["User-Agent"]=ua_list2[ua_idx]
+        # headers["User-Agent"]=ua_list2[ua_idx]
 
 
         s.cookies.clear()
+
+        sys.exit(-1)
+
+        time.sleep(90)
+
+        print("sleep 90s...")
 
         is_isbn_exist(s,isbn)
 
@@ -178,7 +189,7 @@ def get_ssid_packs(s,isbn,is_exist=True):
         url = ucdrs_url + isbn + f"&Pages={page_num}"
         try:
 
-            page_text = s.get (url, headers=headers,timeout=60).text
+            page_text = s.get (url, headers=headers,timeout=15).text
             assert page_text!=""
             time.sleep(1)
 
@@ -472,18 +483,23 @@ def main():
                     
                     s.cookies.clear()
 
+                start=time.time()
+
                 is_exist=is_isbn_exist(s,isbn)
                 cnt+=1
                 if is_exist:
                     packs=get_ssid_packs(s,isbn)
                     all_packs.extend(packs)
+                end=time.time()
+
+                print("Runtime:",end-start)
                 
                 with open(isbn_already_path,"a",encoding="utf-8") as f:
                     f.write("\n")
                     f.write(isbn)
-                if cnt%500==0:
-                    print("sleep for 1min...")
-                    time.sleep(60)
+                if cnt%2000==0:
+                    print("sleep for 5s...")
+                    time.sleep(5)
                     s.cookies.clear()
 
     insert_packs_sql2=  f"INSERT INTO {tb_name2} " \
