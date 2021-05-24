@@ -457,10 +457,10 @@ def get_ssid_packs(s,isbn,proxy,is_exist=True):
 
 
 
-# bad_isbn="9787544242516"
-# multi_isbn="9787108016386"
-# get_ssid_pack(multi_isbn)
-# sys.exit(0)
+bad_isbn="9787544242516"
+multi_isbn="9787108016386"
+get_ssid_pack(multi_isbn)
+sys.exit(0)
 
 
 

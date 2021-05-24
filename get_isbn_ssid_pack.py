@@ -29,10 +29,10 @@ xls_path=r"D:\get_isbn_ssid_pack\publisher_identifiers.xlsx"
 
 ucdrs_url="http://book.ucdrs.superlib.net/search?sw="
 
-ssid_pack_path=r"D:\AllDowns\ssid_packs\ssid_packs.txt"
+ssid_pack_path=r"D:\get_isbn_ssid_pack\ssid_packs\ssid_packs.txt"
 
 # no matter good or bad...
-isbn_already_path=r"D:\AllDowns\ssid_packs\isbn_already.txt"
+isbn_already_path=r"D:\get_isbn_ssid_pack\ssid_packs\isbn_already.txt"
 
 isbn_exist_error_path=r"D:\get_isbn_ssid_pack\isbn_exist_error.txt"
 
